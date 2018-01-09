@@ -38,6 +38,6 @@
 
 <!-- scripts -->
 @include('includes.scripts')
-
+@yield('scripts')
 </body>
 </html>

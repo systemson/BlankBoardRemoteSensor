@@ -30,7 +30,12 @@ class SensorsController extends Controller
     protected function resourceAbilityMap()
     {
         return [
-            //
+            'index' => 'index',
+            'create' => 'create',
+            'store' => 'create',
+            'edit' => 'update',
+            'update' => 'update',
+            'destroy' => 'delete',
         ];
     }
 }

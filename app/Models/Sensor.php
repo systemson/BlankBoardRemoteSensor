@@ -12,7 +12,7 @@ class Sensor extends Model
      * @var array
      */
     protected $fillable = [
-
+        'name', 'description', 'user_id', 'type',
     ];
 
     /**
@@ -39,7 +39,7 @@ class Sensor extends Model
      */
     public function meditions()
     {
-        return $this->hasMany(App\Models\Medition::class);
+        return $this->hasMany(\App\Models\Medition::class);
     }
 
     /**
@@ -49,6 +49,6 @@ class Sensor extends Model
      */
     public function user()
     {
-        return $this->belongsTo(App\Models\User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 }

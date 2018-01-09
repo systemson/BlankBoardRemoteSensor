@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Sensor;
 
 class Medition extends Model
 {
@@ -31,4 +33,14 @@ class Medition extends Model
     protected $dates = [
         'created_at', 'updated_at',
     ];
+
+    public function sensor()
+    {
+        return $this->belongsTo(Sensor::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

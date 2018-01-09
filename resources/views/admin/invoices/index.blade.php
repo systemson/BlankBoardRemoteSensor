@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Content header (Page header) -->
-  @include('includes.content-header', ['name' => $name, 'before' => [['name' => __('messages.admin-site'), 'route' => 'admin'], __($name . '.parent')]])
+  @include('includes.content-header', ['name' => $name, 'before' => [['name' => __('messages.admin-site'), 'route' => 'admin']]])
 <!-- /. content header -->
 
 <!-- Main content -->
@@ -35,7 +35,6 @@
         </div><!-- /. box header -->
 
         <div class="box-body no-padding">
-        {!! $resources->appends(['sort' => 'votes'])->render() !!}
           <table class="table table-hover table-bordered">
             <thead>
               <tr>

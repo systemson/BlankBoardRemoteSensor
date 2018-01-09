@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Content header (Page header) -->
-  @include('includes.content-header', ['name' => $name, 'before' => [['name' => __('messages.admin-site'), 'route' => 'admin'], __($name . '.parent')], 'after' => [__('messages.edit')]])
+  @include ('includes.content-header', ['name' => $name, 'before' => [['name' => __('messages.admin-site'), 'route' => 'admin']], 'after' => [__('messages.edit')]])
 <!-- /. content header -->
 
 <!-- Main content -->
@@ -16,37 +16,22 @@
       @include('includes.alerts')
     </div>
 
-    @if (Auth::id() == $resource->id)
-      <div class="col-sm-3">
-        @include('includes.box-profile')
-      </div>
-    @endif
+    <div class="col-sm-12">
 
-    <div class="@if(Auth::id() == $resource->id) col-sm-9 @else col-sm-12 @endif">
+      <div class="box box-primary">
 
-      <div class="nav-tabs-custom">
-
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#user-data" data-toggle="tab" aria-expanded="true">{{ __('users.tab-4') }}</a></li>
-          <li><a href="#password" data-toggle="tab" aria-expanded="true">{{ __('users.tab-5') }}</a></li>
-          <li><a href="#image" data-toggle="tab" aria-expanded="true">{{ __('users.tab-6') }}</a></li>
-        </ul>
-
-        <div class="tab-content">
-
-          <div id="user-data" class="tab-pane active">
-            @include('includes.forms.users_update_adv')
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ __($name . '.add', ['name' => trans_choice($name . '.name', 1)]) }}</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" type="button" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
           </div>
+        </div><!-- /. box header -->
 
-          <div id="password" class="tab-pane">
-            @include('includes.forms.users_password')
-          </div>
-
-          <div id="image" class="tab-pane">
-            @include('includes.forms.users_image')
-          </div>
-
-        </div><!-- /. tab content -->
+        <div class="box-body">
+          @include('includes.forms.sensors')
+        </div><!-- /. box body -->
 
       </div><!-- /. box -->
 

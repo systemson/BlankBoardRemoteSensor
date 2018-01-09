@@ -1,7 +1,7 @@
 <!-- Logo -->
 <a href="{{ route('dashboard.index') }}" class="logo">
   <!-- mini logo for sidebar mini 50x50 pixels -->
-  <span class="logo-mini"><b>DDU</b></span>
+  <span class="logo-mini"><b>RS</b></span>
   <!-- logo for regular state and mobile devices -->
   <span class="logo-lg"><b>{{ config('app.name') }}</b></span>
 </a>
@@ -21,28 +21,6 @@
     <ul class="nav navbar-nav">
 
       @auth
-        <li class="dropdown messages-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-envelope-o"></i>
-            @if (Auth::user()->unreadEmails()->count() > 0)
-              <span class="label label-success">
-                {{ Auth::user()->unreadEmails()->count() }}
-              </span>
-            @endif
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">{{ trans_choice('emails.unread-messages', Auth::user()->unreadEmails()->count()) }}</li>
-            <li>
-              <ul class="menu">
-                @include('includes.tables.header_emails')
-              </ul>
-            </li>
-            <li class="footer">
-              <a href="{{ route('emails.index') }}">{{ __('emails.open-inbox') }}</a>
-            </li>
-          </ul>
-        </li>
-
         <!-- User Account Menu -->
         <li class="dropdown user user-menu">
 

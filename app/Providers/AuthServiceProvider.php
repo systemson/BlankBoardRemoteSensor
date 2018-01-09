@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Medition::class    =>  \App\Policies\ActionPolicy::class,
         \App\Models\Invoice::class     =>  \App\Policies\ActionPolicy::class,
         \App\Models\Sensor::class      =>  \App\Policies\ActionPolicy::class,
+        \App\Models\Payment::class      =>  \App\Policies\ActionPolicy::class,
         \App\Models\Email::class       =>  \App\Policies\EmailPolicy::class,
     ];
 

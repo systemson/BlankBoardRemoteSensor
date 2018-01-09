@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Content header (Page header) -->
-  @include('includes.content-header', ['name' => $name, 'before' => [['name' => __('messages.admin-site'), 'route' => 'admin'], __($name . '.parent')], 'after' => [__('messages.new')]])
+  @include ('includes.content-header', ['name' => $name, 'before' => [['name' => __('messages.admin-site'), 'route' => 'admin']], 'after' => [__('messages.new')]])
 <!-- /. content header -->
 
 <!-- Main content -->
@@ -30,7 +30,7 @@
         </div><!-- /. box header -->
 
         <div class="box-body">
-          @include('includes.forms.users_create', ['new' => 'true'])
+          @include('includes.forms.sensors', ['new' => 'true'])
         </div><!-- /. box body -->
 
       </div><!-- /. box -->

@@ -74,7 +74,7 @@
     <!-- /. sensors module -->
     @endif
 
-		@if (Auth::user()->hasPermission('Sensors', true))
+		@if (Auth::user()->hasPermission('Payments', true))
     <!-- Payments Module -->
     <li class="@if (routeNameIs('payments', true)) active @endif">
       <a href="{{ URL::route('payments.index') }}">
