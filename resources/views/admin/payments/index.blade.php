@@ -54,7 +54,7 @@
                 <td>{{ $sensor->user->name }}</td>
                 <td>{{ $sensor->user->dni }}</td>
                 <td>{{ $sensor->id }}</td>
-                <td>{{ $sensor->type }}</td>
+                <td>{{ __('sensors.table.' . $sensor->type) }}</td>
                 <td>{{ number_format($invoice->sum('medition'), 2, '.', ',') }}</td>
                 <td>{{ number_format($invoice->sum('medition') * config('rates.' . $sensor->type), 2, '.', ',') }}</td>
                 @if ($invoice[0]->paid)
