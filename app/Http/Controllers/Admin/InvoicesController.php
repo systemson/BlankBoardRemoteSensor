@@ -64,6 +64,9 @@ class InvoicesController extends Controller
         ->groupBy('sensor_id')
         ->first();
 
+        if ($meditions[0]->paid) {
+          return redirect()->route('payments.index');
+        }
         $sensor = Sensor::find($sensor_id);
 
         /** Show the form for creating a new resource. */
