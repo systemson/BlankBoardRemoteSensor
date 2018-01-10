@@ -14,7 +14,7 @@ return [
       'address' => 'Dirección',
       'phone' => 'Teléfono',
       'consumption' => 'Consumo [mt3]',
-      'dni' => 'DNI',
+      'dni' => 'Cédula',
       'medition' => 'Consumo',
       'payment' => 'A Pagar',
       'paid' => 'Monto',
