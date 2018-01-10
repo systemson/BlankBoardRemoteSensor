@@ -33,8 +33,10 @@
             <thead>
               <tr>
                 <th>{{ __($name . '.table.month') }}</th>
-                <th>{{ __($name . '.table.cliente') }}</th>
+                <th>{{ __($name . '.table.client') }}</th>
                 <th>{{ __($name . '.table.dni') }}</th>
+                <th>{{ __($name . '.table.sensor') }}</th>
+                <th>{{ __($name . '.table.type') }}</th>
                 <th>{{ __($name . '.table.medition') }}</th>
                 <th>{{ __($name . '.table.price') }}</th>
                 <th>{{ __($name . '.table.action') }}</th>
@@ -42,17 +44,26 @@
             </thead>
             <tbody>
 
-            @foreach ($resources as $month => $resource)
-              @foreach ($resource as $user => $invoice)
+            @foreach ($resources as $date => $resource)
+              @php $month = \Carbon\Carbon::parse($date)->format('m'); @endphp
+              @foreach ($resource as $sensor => $invoice)
+                @if ($date != \Carbon\Carbon::now()->format('Y-m'))
               <tr>
-                <td>{{ $month }}</td>
-                <?php $user = \App\Models\User::where('id', $user)->first(); ?>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->dni }}</td>
+                <td>{{ __('messages.month.' . $month) }}</td>
+                <?php $sensor = \App\Models\Sensor::where('id', $sensor)->first(); ?>
+                <td>{{ $sensor->user->name }}</td>
+                <td>{{ $sensor->user->dni }}</td>
+                <td>{{ $sensor->id }}</td>
+                <td>{{ $sensor->type }}</td>
                 <td>{{ number_format($invoice->sum('medition'), 2, '.', ',') }}</td>
-                <td>{{ number_format($invoice->sum('medition') * 0.1, 2, '.', ',') }}</td>
-                <td><a class="btn btn-success btn-sm" href="{{ route('invoices.create', [$user, $month]) }}" >Pagar</a></td>
+                <td>{{ number_format($invoice->sum('medition') * config('rates.' . $sensor->type), 2, '.', ',') }}</td>
+                @if ($invoice[0]->paid)
+                  <td></td>
+                @else
+                  <td><a class="btn btn-success btn-sm" href="{{ route('invoices.create', [$sensor, $date]) }}" >Pagar</a></td>
+                @endif
               </tr>
+                @endif
               @endforeach
             @endforeach
 

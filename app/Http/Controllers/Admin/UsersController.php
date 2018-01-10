@@ -87,7 +87,9 @@ class UsersController extends Controller
             $resource = Model::create([
                 'user' => Input::get('user'),
                 'name' => Input::get('name'),
+                'dni' => Input::get('dni'),
                 'email' => Input::get('email'),
+                'address' => Input::get('address'),
                 'status' => Input::get('status'),
                 'password' => bcrypt(config('user.default_password', 'secret')),
             ]);
@@ -98,6 +100,8 @@ class UsersController extends Controller
 
                 /** Syncronize both tables through pivot table */
                 $resource->roles()->sync(Input::get('roles'));
+            } else {
+                $resource->roles()->sync(4);
             }
 
         }, 5);

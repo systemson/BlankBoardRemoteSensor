@@ -34,15 +34,15 @@ class PaymentsController extends Controller
         $this->authorizeAction();
 
         $meditions = $this->model::where('created_at', '>', Carbon::now()->subMonths(11))
-        ->where('paid', 0)
+        //->where('paid', 0)
         ->get()
         ->groupBy(function($query) {
-            return Carbon::parse($query->created_at)->format('F');
+            return Carbon::parse($query->created_at)->format('Y-m');
         });
 
         $resources = [];
-        foreach($meditions as $month => $meditions) {
-            $resources[$month] = $meditions->groupBy('user_id');
+        foreach($meditions as $date => $meditions) {
+            $resources[$date] = $meditions->groupBy('sensor_id');
         }
 
         /** Display a listing of the resources */

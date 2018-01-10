@@ -13,6 +13,8 @@ return [
       'month' => 'Mes',
       'client' => 'Nombre',
       'dni' => 'DNI',
+      'sensor' => 'Cód. Sensor',
+      'type' => 'Tipo',
       'medition' => 'Consumo',
       'price' => 'A Pagar',
       'action' => 'Acción',

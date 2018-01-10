@@ -45,7 +45,7 @@
     <!-- Meditions Module -->
     <li class="@if (routeNameIs('meditions', true)) active @endif">
       <a href="{{ URL::route('meditions.index') }}">
-        <i class="fa fa-home"></i>
+        <i class="fa fa-line-chart"></i>
         <span>Mediciones</span>
       </a>
     </li>
@@ -56,7 +56,7 @@
     <!-- Invoices Module -->
     <li class="@if (routeNameIs('invoices', true)) active @endif">
       <a href="{{ URL::route('invoices.index') }}">
-        <i class="fa fa-home"></i>
+        <i class="fa fa-money"></i>
         <span>Facturas</span>
       </a>
     </li>
@@ -67,7 +67,7 @@
     <!-- Sensors Module -->
     <li class="@if (routeNameIs('sensors', true)) active @endif">
       <a href="{{ URL::route('sensors.index') }}">
-        <i class="fa fa-home"></i>
+        <i class="fa fa-cog"></i>
         <span>Medidores</span>
       </a>
     </li>
@@ -78,7 +78,7 @@
     <!-- Payments Module -->
     <li class="@if (routeNameIs('payments', true)) active @endif">
       <a href="{{ URL::route('payments.index') }}">
-        <i class="fa fa-home"></i>
+        <i class="fa fa-money"></i>
         <span>Pagos</span>
       </a>
     </li>

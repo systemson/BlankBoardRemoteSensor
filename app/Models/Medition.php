@@ -14,7 +14,7 @@ class Medition extends Model
      * @var array
      */
     protected $fillable = [
-
+        'paid',
     ];
 
     /**

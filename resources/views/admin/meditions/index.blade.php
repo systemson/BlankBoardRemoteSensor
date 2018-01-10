@@ -66,8 +66,8 @@
                 <td>{{ $resource->user->dni }}</td>
                 <td>{{ $resource->user->name }}</td>
                 <td class="text-right">{{ number_format($resource->medition, 2, '.', ',') }}</td>
-                <td class="text-right">0.1&nbsp;$/m3</td>
-                <td class="text-right">$&nbsp;{{ number_format($resource->medition * 0.1, 2, '.', ',') }}</td>
+                <td class="text-right">{{ config('rates.' . $resource->sensor->type) }}&nbsp;$/m3</td>
+                <td class="text-right">$&nbsp;{{ number_format($resource->medition * config('rates.' . $resource->sensor->type), 2, '.', ',') }}</td>
                 <td>{{ __('sensors.table.' . $resource->sensor->type) }}</td>
                 <td>{{ $resource->created_at->format('Y/m/d') }}</td>
               </tr>
@@ -109,7 +109,7 @@
     var areaChart       = new Chart(areaChartCanvas)
 
     var areaChartData = {
-      labels  : {!! $byMonth->keys() !!},
+      labels  : {!! json_encode($months) !!},
       datasets: [
         {
           label               : 'Consumo',

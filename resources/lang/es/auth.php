@@ -19,8 +19,11 @@ return [
     /** Auth and User forms */
     'username' => 'Usuario',
     'name' => 'Nombre',
+    'dni' => 'Cédula',
     'lastname' => 'Apellido',
+    'phone' => 'Teléfono',
     'email' => 'Correo',
+    'address' => 'Dirección',
     'password' => 'Contraseña',
     'confirm' => 'Confirmar',
     'new_password' => 'Nueva contraseña',

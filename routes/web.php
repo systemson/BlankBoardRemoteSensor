@@ -55,7 +55,7 @@ Route::namespace('Admin')
 
     /** Invoices module */
     Route::resource('invoices', 'InvoicesController');
-    Route::get('invoices/new/{user_id}/{month}', 'InvoicesController@new')->name( 'invoices.create' );
+    Route::get('invoices/new/{user_id}/{date}', 'InvoicesController@new')->name( 'invoices.create' );
 
     /** Sensors module */
     Route::resource('sensors', 'SensorsController');

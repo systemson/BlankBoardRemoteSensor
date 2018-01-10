@@ -22,7 +22,7 @@ class MeditionsTableSeeder extends Seeder
 
                 for($x=0; $x < 365; $x++) {
                     $insert[] = [
-                        'medition' => rand(100, 10000),
+                        'medition' => rand(10, 100),
                         'user_id' => $user->id,
                         'sensor_id' => $sensor->id,
                         'paid' => false,

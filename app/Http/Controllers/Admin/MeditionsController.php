@@ -37,6 +37,7 @@ class MeditionsController extends Controller
         /** Get the resources from the model */
         $resources = $this->model::where('created_at', '>', Carbon::now()->subYear())
         ->where('user_id', auth()->id())
+        ->orderBy('created_at', 'DESC')
         ->paginate($this->paginate);
 
         $groupByMonth = $this->model::where('created_at', '>', Carbon::now()->subYear())
@@ -47,8 +48,11 @@ class MeditionsController extends Controller
         });
 
         $values = [];
-        foreach($groupByMonth as $month) {
-            $values[] = $month->sum('medition');
+        $months = [];
+
+        foreach($groupByMonth as $group => $data) {
+            $values[] = $data->sum('medition');
+            $months[] = __('messages.month.' . Carbon::parse($group)->format('m'));
         }
 
         /** Display a listing of the resources */
@@ -56,6 +60,7 @@ class MeditionsController extends Controller
         ->with('resources' , $resources)
         ->with('byMonth', $groupByMonth)
         ->with('values', $values)
+        ->with('months', $months)
         ->with('name', $this->name);
     }
 

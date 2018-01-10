@@ -102,7 +102,22 @@ return [
     'access-denied' => 'Acceso denegado. No puedes acceder a esta página.',
     'required-fields' => '(*) Campos obligatorios.',
 
-    // Date format
-    'date-format' => 'j M. Y g:i a'
+    // Date
+    'date-format' => 'j M. Y g:i a',
+
+    'month' => [
+        '01' => 'Enero',
+        '02' => 'Febrero',
+        '03' => 'Marzo',
+        '04' => 'Abril',
+        '05' => 'Mayo',
+        '06' => 'Junio',
+        '07' => 'Julio',
+        '08' => 'Agosto',
+        '09' => 'Septiembre',
+        '10' => 'Octubre',
+        '11' => 'Noviembre',
+        '12' => 'Diciembre',
+    ],
 
 ];

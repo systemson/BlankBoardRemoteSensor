@@ -33,6 +33,30 @@
       </div>
     </div>
 
+    <div class="form-group{{ $errors->has('dni') ? ' has-error' : '' }}">
+      {{ Form::label('dni', __('auth.dni') . ' (*)', array('class' => 'col-sm-4 control-label')) }}
+      <div class="col-sm-8">
+        {{ Form::text('dni', null, array('class' => 'col-sm-12 control-form', 'placeholder' => __('auth.dni'))) }}
+        @if ($errors->has('dni'))
+          <span class="help-block">
+            <strong>{{ $errors->first('dni') }}</strong>
+          </span>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+      {{ Form::label('phone', __('auth.phone') . ' (*)', array('class' => 'col-sm-4 control-label')) }}
+      <div class="col-sm-8">
+        {{ Form::text('phone', null, array('class' => 'col-sm-12 control-form', 'placeholder' => __('auth.phone'))) }}
+        @if ($errors->has('phone'))
+          <span class="help-block">
+            <strong>{{ $errors->first('phone') }}</strong>
+          </span>
+        @endif
+      </div>
+    </div>
+
     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
       {{ Form::label('email', __('auth.email') . ' (*)', array('class' => 'col-sm-4 control-label')) }}
       <div class="col-sm-8">
@@ -44,6 +68,18 @@
         @endif
       </div>
     </div>
+
+  <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+    {{ Form::label('address', __('auth.address') . ' *', array('class' => 'col-sm-4 control-label')) }}
+    <div class="col-sm-8">
+      {{ Form::textarea('address', null, array('class' => 'col-sm-12 control-form', 'rows' => '4')) }}
+      @if ($errors->has('address'))
+        <span class="help-block">
+          <strong>{{ $errors->first('address') }}</strong>
+        </span>
+      @endif
+    </div>
+  </div>
 
   </div>
 

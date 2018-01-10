@@ -26,6 +26,9 @@ class StoreUser extends FormRequest
         return [
             'user' => 'required|unique:users|max:18|alpha_num',
             'name' => 'required|max:50',
+            'dni' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
             'email' => 'required|email|unique:users|max:100',
             'status' => 'required|integer',
             'roles' => 'nullable|array',

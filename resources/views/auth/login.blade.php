@@ -70,10 +70,6 @@
 
             {{ Form::close() }}
 
-             <div class="col-sm-12 text-center">
-               <a class="btn btn-link" href="{{ route('register') }}">{{ __('auth.unregistered') }}</a>
-             </div>
-
           </div><!-- /. box body -->
 
         </div><!-- /. box -->

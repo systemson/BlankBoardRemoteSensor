@@ -12,7 +12,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-
+        'user_id', 'sensor_id', 'month', 'year', 'consumption', 'payment',
     ];
 
     /**
@@ -21,6 +21,7 @@ class Invoice extends Model
      * @var array
      */
     protected $hidden = [
+        //
     ];
 
     /**
@@ -31,4 +32,14 @@ class Invoice extends Model
     protected $dates = [
         'created_at', 'updated_at',
     ];
+
+    public function sensor()
+    {
+        return $this->belongsTo(Sensor::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

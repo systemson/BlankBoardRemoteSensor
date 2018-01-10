@@ -22,12 +22,6 @@
         <div class="box-header with-border">
           <h3 class="box-title">{{ __($name . '.list', ['title' => __($name . '.title')]) }}</h3>
           <div class="box-tools pull-right">
-            @if (Auth::user()->hasPermission('create_' . $name))
-              <a class="{{ __('messages.btn.new.class') }}" href="{{ route($name . '.create') }}" >
-                <i class="fa fa-plus-circle"></i>
-                {{ __('messages.btn.new.name') }}
-              </a>
-            @endif
             <button class="btn btn-box-tool" type="button" data-widget="collapse">
               <i class="fa fa-minus"></i>
             </button>
@@ -39,11 +33,13 @@
             <thead>
               <tr>
                 <th>{{ __($name . '.table.id') }}</th>
-                @if (Auth::user()->hasPermission('delete_' . $name))
-                  <th class="text-center">{{ __($name . '.table.action') }}</th>
-                @endif
-                <th class="col-sm-12">{{ __($name . '.table.name') }}</th>
-                <th class="text-center">{{ __($name . '.table.status') }}</th>
+                <th>{{ __($name . '.table.period') }}</th>
+                <th>{{ __($name . '.table.sensor') }}</th>
+                <th>{{ __($name . '.table.type') }}</th>
+                <th>{{ __($name . '.table.consumption') }}</th>
+                <th>{{ __($name . '.table.paid') }}</th>
+                <th>{{ __($name . '.table.paid_at') }}</th>
+                <th class="text-center">{{ __($name . '.table.action') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -51,30 +47,15 @@
             @foreach ($resources as $resource)
               <tr>
                 <td>{{ $resource->id }}</td>
-                @if (Auth::user()->hasPermission('delete_' . $name))
-                  <td class="text-nowrap">
-                    {{ Form::open(['method' => 'DELETE','route' => [$name . '.destroy', $resource->id]]) }}
-                      {{ Form::button( __('messages.action.trash'), array(
-                        'type' => 'submit',
-                        'class'=> 'btn-danger btn-xs',
-                        'onclick'=>'return confirm("' . __($name . '.confirm-delete') . '")'
-                      )) }}
-                    {{ Form::close() }}
-                  </td>
-                @endif
-                <td>
-                  @if (Auth::user()->hasPermission('update_' . $name))
-                    <a href="{{ route($name . '.edit', $resource->id) }}">{{ $resource->name }}</a>
-                  @else
-                    {{ $resource->name }}
-                  @endif
-                </td>
-                <td><span class="{{ __('messages.status.' . $resource->status . '.class') }}">
-                  {{ __('messages.status.' . $resource->status . '.name') }}
-                </span></td>
+                <td>{{ __('messages.month.' . $resource->month) . '-' . $resource->year }}</td>
+                <td>{{ $resource->sensor->id }}</td>
+                <td>{{ __('sensors.table.' . $resource->sensor->type) }}</td>
+                <td class="text-right">{{ number_format($resource->consumption, 2, '.', ',') }}</td>
+                <td class="text-right">$ {{ number_format($resource->payment, 2, '.', ',') }}</td>
+                <td class="text-center">{{ $resource->created_at->format('Y-m-d') }}</td>
+                <td class="text-center"><a class="btn btn-primary btn-xs" href="{{ route($name . '.show', [$resource->id]) }}" ><i class="fa fa-download"></i></a></td>
               </tr>
-              @endforeach
-
+            @endforeach
             </tbody>
           </table>
           <div class="col-sm-12">

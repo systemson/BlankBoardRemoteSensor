@@ -16,7 +16,12 @@ class CreateInvoiceTable extends Migration
         Schema::create('invoices',function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('sensor_id');
+            $table->string('month');
+            $table->string('year');
+            $table->float('consumption');
             $table->float('payment');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

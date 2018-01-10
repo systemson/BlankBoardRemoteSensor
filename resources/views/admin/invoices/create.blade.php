@@ -30,7 +30,31 @@
         </div><!-- /. box header -->
 
         <div class="box-body">
-          @include('includes.forms.invoices', ['new' => 'true'])
+          <div class="col-sm-12">
+            @include('includes.forms.invoices')
+          <hr>
+          </div>
+          <div>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr class="info">
+                <th class="col-sm-6">Descripción</th>
+                <th class="col-sm-2 text-center">Consumo [mt3]</th>
+                <th class="col-sm-2 text-center">Tasa</th>
+                <th class="col-sm-2 text-center">Monto</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Pago por consumo de agua por el mes de {{ __('messages.month.' . $month) }}</td>
+              <td class="text-right">{{ number_format($meditions->sum('medition'), 2, '.', ',') }}</td>
+              <td class="text-right">$ {{ config('rates.' . $meditions[0]->sensor->type) }}</td>
+              <td class="text-right">$ {{ number_format($meditions->sum('medition') * config('rates.' . $meditions[0]->sensor->type), 2, '.', ',') }}</td>
+            </tr>
+          </table>
+          </div>
+          <div class="col-sm-12 text-right">
+            <p>Total a pagar: $ {{ number_format($meditions->sum('medition') * config('rates.' . $meditions[0]->sensor->type), 2, '.', ',') }}</p>
+          </div>
         </div><!-- /. box body -->
 
       </div><!-- /. box -->

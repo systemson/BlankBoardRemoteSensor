@@ -16,44 +16,21 @@
       @include('includes.alerts')
     </div>
 
-    <div class="col-sm-3">
-      @include('includes.box-profile')
-    </div>
+    <div class="col-sm-12">
+<div class="box box-primary">
 
-    <div class="col-sm-9">
-
-      <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#info" data-toggle="tab" aria-expanded="true">{{ __('users.tab-1') }}</a></li>
-          <li><a href="#messages" data-toggle="tab" aria-expanded="true">{{ __('users.tab-2') }}</a></li>
-          <li><a href="#settings" data-toggle="tab" aria-expanded="true">{{ __('users.tab-3') }}</a></li>
-        </ul>
-        <div class="tab-content">
-
-          <div id="info" class="tab-pane active">
-            <p>{{ __('auth.roles') }}:</p>
-            <ul>
-              @foreach ($resource->roles as $role)
-              <li>{{ $role->name }}</li>
-              @endforeach
-            </ul>
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ __($name . '.view', ['name' => trans_choice($name . '.name', 1), 'resource' => $resource->name ]) }}</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" type="button" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
           </div>
+        </div><!-- /. box header -->
 
-          <div id="messages" class="tab-pane">
-            @include('includes.tables.user_emails')
-          </div>
-
-          <div id="settings" class="tab-pane">
-            <div class="box-header with-border">
-              <div class="pull-left">
-                <a href="{{ route('users.edit', $resource->id) }}" class="btn btn-primary">{{ __('users.adv-config') }}</a>
-              </div>
-            </div>
-
-            @include('includes.forms.users_update', ['name' => $name])
-          </div>
-
-        </div><!-- /. tab content -->
+        <div class="box-body">
+          @include('includes.forms.' . $name, ['name' => $name])
+        </div><!-- /. box body -->
 
       </div><!-- /. box -->
 
