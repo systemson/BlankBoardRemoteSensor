@@ -14,7 +14,7 @@ return [
       'description' => 'Descripción',
       'user' => 'Cliente',
       'type' => 'Tipo de Contrato',
-      'dni' => 'DNI',
+      'dni' => 'Cédula',
       'home' => 'Hogar',
       'bussiness' => 'Empresa',
     ],
