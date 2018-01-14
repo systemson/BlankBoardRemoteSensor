@@ -12,18 +12,13 @@ return [
     'table' => [
       'month' => 'Mes',
       'client' => 'Nombre',
-      'dni' => 'DNI',
+      'dni' => 'Cédula',
       'sensor' => 'Cód. Sensor',
       'type' => 'Tipo',
       'medition' => 'Consumo',
       'price' => 'A Pagar',
       'action' => 'Acción',
     ],
-
-    // Alerts
-    'resource-created' => 'Nuevo rol creado.',
-    'resource-updated' => 'Rol actualizado satisfactoriamente.',
-    'resource-deleted' => 'Rol eliminado.',
 
     'confirm-delete' => 'Esta acción no puede ser revertida. ¿Estás seguro?',
 ];

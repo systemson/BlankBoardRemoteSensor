@@ -11,7 +11,7 @@ return [
       'id' => 'ID',
       'action' => 'Acción',
       'client' => 'Cliente',
-      'dni' => 'DNI',
+      'dni' => 'Cédula',
       'medition' => 'Consumo',
       'price' => 'Costo',
       'rate' => 'Tasa',
