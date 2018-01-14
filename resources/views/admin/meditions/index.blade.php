@@ -12,22 +12,45 @@
 
   <div class="row">
 
+
     <div class="col-sm-12">
       @include('includes.alerts')
     </div>
 
     <div class="col-sm-12">
-      <div class="box box-primary">
+      <div class="box box-warning">
+
         <div class="box-header with-border">
-          <h3 class="box-title">Gráfico de Consumo</h3>
+          <h3 class="box-title">Filtros</h3>
           <div class="box-tools pull-right">
             <button class="btn btn-box-tool" type="button" data-widget="collapse">
               <i class="fa fa-minus"></i>
             </button>
           </div>
-        </div><!-- /. box header -->
-        <div class="box-body">
-          <canvas id="areaChart" class="col-sm-12"></canvas>
+        </div>
+        <div class="box-body no-padding">
+          {{ Form::open(['method' => 'GET', 'class' => "form-horizontal"]) }}
+            <div class="form-group col-sm-4">
+              {{ Form::label('sensor_id', 'Cód. Sensor', ['class' => 'control-label col-sm-6', 'onchange' => 'this.form.submit()']) }}
+              <div class="col-sm-6">
+                {{ Form::select('sensor_id', \App\Models\Sensor::where('user_id', auth()->id())->pluck('id','id')->prepend('Todos'), $filters['sensor_id'], ['class' => 'control-form', 'onchange' => 'this.form.submit()']) }}
+              </div>
+            </div>
+
+            <div class="form-group col-sm-4">
+              {{ Form::label('from', 'Desde', array('class' => 'control-label col-sm-6')) }}
+              <div class="col-sm-6">
+                {{ Form::select('from', config('months.all'), $filters['from'], ['class' => 'control-form', 'onchange' => 'this.form.submit()']) }}
+              </div>
+            </div>
+
+            <div class="form-group col-sm-4">
+              {{ Form::label('to', 'Hasta', array('class' => 'control-label col-sm-6')) }}
+              <div class="col-sm-6">
+                {{ Form::select('to', config('months.all'), $filters['to'], ['class' => 'control-form', 'onchange' => 'this.form.submit()']) }}
+              </div>
+            </div>
+          {{ Form::close() }}
         </div>
       </div>
     </div>
@@ -48,40 +71,33 @@
           <table class="table table-hover table-bordered">
             <thead>
               <tr>
-                <th>{{ __($name . '.table.id') }}</th>
-                <th>{{ __($name . '.table.dni') }}</th>
-                <th class="col-sm-12">{{ __($name . '.table.client') }}</th>
-                <th>{{ __($name . '.table.medition') }}</th>
-                <th>{{ __($name . '.table.rate') }}</th>
-                <th>{{ __($name . '.table.price') }}</th>
+                <th>{{ __($name . '.table.month') }}</th>
+                <th>{{ __($name . '.table.sensor') }}</th>
                 <th>{{ __($name . '.table.type') }}</th>
-                <th>{{ __($name . '.table.date') }}</th>
+                <th>{{ __($name . '.table.medition') }}</th>
+                <th>{{ __($name . '.table.price') }}</th>
               </tr>
             </thead>
             <tbody>
 
-            @forelse ($resources as $resource)
+            @foreach ($resources as $date => $resource)
+              @php $month = \Carbon\Carbon::parse($date)->format('m'); @endphp
+              @foreach ($resource as $sensor => $invoice)
+                @if ($date != \Carbon\Carbon::now()->format('Y-m'))
               <tr>
-                <td>{{ $resource->id }}</td>
-                <td>{{ $resource->user->dni }}</td>
-                <td>{{ $resource->user->name }}</td>
-                <td class="text-right">{{ number_format($resource->medition, 2, '.', ',') }}</td>
-                <td class="text-right">{{ config('rates.' . $resource->sensor->type) }}&nbsp;$/m3</td>
-                <td class="text-right">$&nbsp;{{ number_format($resource->medition * config('rates.' . $resource->sensor->type), 2, '.', ',') }}</td>
-                <td>{{ __('sensors.table.' . $resource->sensor->type) }}</td>
-                <td>{{ $resource->created_at->format('Y/m/d') }}</td>
+                <td>{{ __('messages.month.' . $month) }}</td>
+                <?php $sensor = \App\Models\Sensor::where('id', $sensor)->first(); ?>
+                <td>{{ $sensor->id }}</td>
+                <td>{{ __('sensors.table.' . $sensor->type) }}</td>
+                <td>{{ number_format($invoice->sum('medition'), 2, '.', ',') }}</td>
+                <td class="text-red"><b>{{ number_format($invoice->sum('medition') * config('rates.' . $sensor->type), 2, '.', ',') }}</b></td>
               </tr>
-              @empty
-              <tr>
-                <td colspan="4">Tabla vacía</td>
-              </tr>
-              @endforelse
+                @endif
+              @endforeach
+            @endforeach
 
             </tbody>
           </table>
-          <div class="col-sm-12">
-            <div class="text-right">{{ $resources->links() }}</div>
-          </div>
         </div><!-- /. box-body -->
 
       </div><!-- /. box -->
@@ -89,83 +105,4 @@
   </div><!-- /. row -->
 
 </section><!-- /. content -->
-@stop
-
-@section('scripts')
-<script>
-  jQuery(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
-
-    //--------------
-    //- AREA CHART -
-    //--------------
-
-    // Get context with jQuery - using jQuery's .get() method.
-    var areaChartCanvas = jQuery('#areaChart').get(0).getContext('2d')
-    // This will get the first returned node in the jQuery collection.
-    var areaChart       = new Chart(areaChartCanvas)
-
-    var areaChartData = {
-      labels  : {!! json_encode($months) !!},
-      datasets: [
-        {
-          label               : 'Consumo',
-          fillColor           : 'rgba(60,141,188,0.9)',
-          strokeColor         : 'rgba(60,141,188,0.8)',
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : {{ json_encode($values) }},
-        }
-      ]
-    }
-
-    var areaChartOptions = {
-      //Boolean - If we should show the scale at all
-      showScale               : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - Whether the line is curved between points
-      bezierCurve             : true,
-      //Number - Tension of the bezier curve between points
-      bezierCurveTension      : 0.3,
-      //Boolean - Whether to show a dot for each point
-      pointDot                : true,
-      //Number - Radius of each point dot in pixels
-      pointDotRadius          : 4,
-      //Number - Pixel width of point dot stroke
-      pointDotStrokeWidth     : 1,
-      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-      pointHitDetectionRadius : 20,
-      //Boolean - Whether to show a stroke for datasets
-      datasetStroke           : true,
-      //Number - Pixel width of dataset stroke
-      datasetStrokeWidth      : 2,
-      //Boolean - Whether to fill the dataset with a color
-      datasetFill             : true,
-      //String - A legend template
-      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio     : true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive              : true
-    }
-
-    //Create the line chart
-    areaChart.Line(areaChartData, areaChartOptions)
-
-  })
-</script>
 @stop

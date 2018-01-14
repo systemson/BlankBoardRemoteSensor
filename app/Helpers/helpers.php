@@ -30,11 +30,14 @@ if(!function_exists('routeNameIs')) {
             }
         }
 
+        if(is_string($compare)) {
+            $compare = explode('|', $compare);
+        }
+
+
         if($isResource && in_array($current, $map)) {
             return true;
-        } elseif(is_array($compare) && in_array($current, $compare)) {
-            return true;
-        } elseif($current == $compare) {
+        } elseif(in_array($current, $compare)) {
             return true;
         }
 

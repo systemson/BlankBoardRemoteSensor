@@ -51,7 +51,10 @@ Route::namespace('Admin')
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard.index' );
 
     /** Meditions module */
-    Route::resource('meditions', 'MeditionsController');
+    Route::get('meditions', 'MeditionsController@index')->name( 'meditions.index' );
+    Route::get('meditions/graphs', 'MeditionsController@graphs')->name( 'meditions.graphs' );
+    Route::get('meditions/monthly', 'MeditionsController@monthly')->name( 'meditions.monthly' );
+    Route::get('meditions/daily', 'MeditionsController@daily')->name( 'meditions.daily' );
 
     /** Invoices module */
     Route::resource('invoices', 'InvoicesController');

@@ -27,7 +27,12 @@
           </div>
         </div><!-- /. box header -->
         <div class="box-body">
-          <canvas id="areaChart" class="col-sm-12"></canvas>
+          @foreach ($values as $key => $value)
+          <div class="col-sm-12">
+            <h3>Consumo para el Medidor Cód. {{ $key }}</h3>
+            <canvas id="areaChart-{{ $key }}" class="col-sm-12"></canvas>
+            @endforeach
+          </div>
         </div>
       </div>
     </div>
@@ -47,27 +52,6 @@
     //--------------
     //- AREA CHART -
     //--------------
-
-    // Get context with jQuery - using jQuery's .get() method.
-    var areaChartCanvas = jQuery('#areaChart').get(0).getContext('2d')
-    // This will get the first returned node in the jQuery collection.
-    var areaChart       = new Chart(areaChartCanvas)
-
-    var areaChartData = {
-      labels  : {!! json_encode($months) !!},
-      datasets: [
-        {
-          label               : 'Consumo',
-          fillColor           : 'rgba(60,141,188,0.9)',
-          strokeColor         : 'rgba(60,141,188,0.8)',
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : {{ json_encode($values) }},
-        }
-      ]
-    }
 
     var areaChartOptions = {
       //Boolean - If we should show the scale at all
@@ -107,10 +91,31 @@
       //Boolean - whether to make the chart responsive to window resizing
       responsive              : true
     }
+@foreach ($values as $key => $value)
+    // Get context with jQuery - using jQuery's .get() method.
+    var area_{{ $key }} = jQuery('#areaChart-{{ $key }}').get(0).getContext('2d')
+    // This will get the first returned node in the jQuery collection.
+    var areaChart_{{ $key }}       = new Chart(area_{{ $key }})
+
+    var data_{{ $key }} = {
+      labels  : {!! json_encode($months[$key]) !!},
+      datasets: [
+        {
+          label               : 'Consumo',
+          fillColor           : 'rgba(60,141,188,0.9)',
+          strokeColor         : 'rgba(60,141,188,0.8)',
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : {{ json_encode($value) }},
+        }
+      ]
+    }
 
     //Create the line chart
-    areaChart.Line(areaChartData, areaChartOptions)
-
+    areaChart_{{ $key }}.Line(data_{{ $key }}, areaChartOptions)
+@endforeach
   })
 </script>
 @stop

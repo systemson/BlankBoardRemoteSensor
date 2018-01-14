@@ -43,11 +43,43 @@
 
 		@if (Auth::user()->hasPermission('Meditions', true))
     <!-- Meditions Module -->
-    <li class="@if (routeNameIs('meditions', true)) active @endif">
-      <a href="{{ URL::route('meditions.index') }}">
-        <i class="fa fa-line-chart"></i>
-        <span>Mediciones</span>
+    <li class="treeview @if (routeNameIs('meditions.index|meditions.graphs|meditions.monthly|meditions.daily')) menu-open @endif">
+      <a href="#"><i class="fa fa-lock"></i> <span>Consumos</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
       </a>
+      <ul class="treeview-menu" @if (routeNameIs('meditions.index|meditions.graphs|meditions.monthly|meditions.daily')) style="display: block;"  @endif>
+
+        <li class="@if (routeNameIs('meditions.index')) active @endif">
+          <a href="{{ URL::route('meditions.index') }}">
+            <i class="fa fa-line-chart"></i>
+            <span>Pendiente de Pago</span>
+          </a>
+        </li>
+
+        <li class=" @if (routeNameIs('meditions.graphs')) active @endif">
+          <a href="{{ URL::route('meditions.graphs') }}">
+            <i class="fa fa-line-chart"></i>
+            <span>Gráfico de Consumo</span>
+          </a>
+        </li>
+
+        <li class=" @if (routeNameIs('meditions.monthly')) active @endif">
+          <a href="{{ URL::route('meditions.monthly') }}">
+            <i class="fa fa-line-chart"></i>
+            <span>Consumos Mensuales</span>
+          </a>
+        </li>
+
+        <li class=" @if (routeNameIs('meditions.daily')) active @endif">
+          <a href="{{ URL::route('meditions.daily') }}">
+            <i class="fa fa-line-chart"></i>
+            <span>Consumos Diarios</span>
+          </a>
+        </li>
+
+      </ul>
     </li>
     <!-- /. meditions module -->
     @endif
