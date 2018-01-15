@@ -37,9 +37,9 @@
             </div>
 
             <div class="form-group col-sm-6">
-              {{ Form::label('user_id', 'DNI', array('class' => 'control-label col-sm-4')) }}
+              {{ Form::label('user_id', 'Cédula', array('class' => 'control-label col-sm-4')) }}
               <div class="col-sm-8">
-                {{ Form::select('user_id', \App\Models\User::where('dni', '<>', null)->pluck('dni','id'), $filters['user_id'], ['class' => 'control-form chosen-select', 'onchange' => 'this.form.submit()', 'multiple' => 'multiple']) }}
+                {{ Form::select('user_id[]', \App\Models\User::where('dni', '<>', null)->pluck('dni','id'), $filters['user_id'], ['class' => 'control-form chosen-select', 'onchange' => 'this.form.submit()', 'multiple' => 'multiple']) }}
               </div>
             </div>
 

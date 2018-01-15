@@ -1,7 +1,8 @@
 {{ Form::open(array('url' => route($name . '.store'), 'method' => 'POST', 'class' => 'form-horizontal')) }}
 
   <div class="col-sm-12 text-right">
-    {{ Form::submit('Realizar Cobro', array('class' => 'btn btn-success')) }}
+      {{ Form::submit('Pagar', array('class' => 'btn btn-success')) }}
+      <button name="print" class="btn btn-primary" type="input" value="1"><i class="fa fa-print"></i>&nbsp;Pagar e Imprimir</button>
   </div>
 
     {{ Form::hidden('user_id', $sensor->user->id) }}

@@ -7,6 +7,7 @@ use App\Models\Traits\UserEmailsTrait;
 use App\Models\Traits\RolesPermissionTrait;
 use App\Models\AccessLog;
 use App\User as BaseUserModel;
+use Carbon\Carbon;
 
 class User extends BaseUserModel
 {
@@ -153,5 +154,24 @@ class User extends BaseUserModel
         }
 
         return false;
+    }
+
+    public function meditions()
+    {
+        return $this->hasMany(\App\Models\Medition::class);
+    }
+
+    public function monthlyConsumption()
+    {
+        return \App\Models\Medition::where('user_id', $this->id)
+        ->whereYear('created_at', Carbon::now()->format('Y'))
+        ->sum('medition');
+    }
+
+    public function yearlyConsumption()
+    {
+        return \App\Models\Medition::where('user_id', $this->id)
+        ->where('created_at', '>', Carbon::now()->subYear())
+        ->sum('medition');
     }
 }

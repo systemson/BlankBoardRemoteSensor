@@ -17,6 +17,54 @@
     </div>
 
     <div class="col-sm-12">
+      <div class="box box-warning">
+
+        <div class="box-header with-border">
+          <h3 class="box-title">Filtros</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" type="button" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="box-body no-padding">
+          {{ Form::open(['method' => 'GET', 'class' => "form-horizontal"]) }}
+
+            <div class="form-group col-sm-6">
+              {{ Form::label('user_id', 'Cédula', array('class' => 'control-label col-sm-6')) }}
+              <div class="col-sm-6">
+                {{ Form::select('user_id[]', \App\Models\User::where('dni', '<>', null)->pluck('dni','id'), $filters['user_id'], ['class' => 'control-form chosen-select col-sm-12', 'onchange' => 'this.form.submit()', 'multiple' => 'multiple']) }}
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+              {{ Form::label('paid', 'Estado', array('class' => 'control-label col-sm-6')) }}
+              <div class="col-sm-6">
+                {{ Form::select('paid', ['0' => 'Por Pagar', '1' => 'Pagado'],
+                 0,
+                  ['class' => 'control-form', 'onchange' => 'this.form.submit()']) }}
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+              {{ Form::label('from', 'Desde', array('class' => 'control-label col-sm-6')) }}
+              <div class="col-sm-6">
+                {{ Form::select('from', config('months.all'), $filters['from'], ['class' => 'control-form', 'onchange' => 'this.form.submit()']) }}
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+              {{ Form::label('to', 'Hasta', array('class' => 'control-label col-sm-6')) }}
+              <div class="col-sm-6">
+                {{ Form::select('to', config('months.all'), $filters['to'], ['class' => 'control-form', 'onchange' => 'this.form.submit()']) }}
+              </div>
+            </div>
+          {{ Form::close() }}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
       <div class="box box-primary">
 
         <div class="box-header with-border">

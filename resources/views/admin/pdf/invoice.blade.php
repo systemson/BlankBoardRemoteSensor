@@ -19,13 +19,11 @@
                 <p class="text-right">Nro. de factura:</p>
                 <p class="text-right">Tipo de Contrato:</p>
                 <p class="text-right">Fecha de factura:</p>
-                <p class="text-right">Fecha de vencimiento:</p>
               </td>
               <td style="width: 50%;">
                 <p class="text-right">{{ $resource->id }}</p>
                 <p class="text-right">{{ __('sensors.table.' . $resource->sensor->type) }}</p>
                 <p class="text-right">{{ $resource->created_at->format('d/m/Y') }}</p>
-                <p class="text-right">{{ $resource->created_at->addMonth()->format('d/m/Y') }}</p>
               </td>
             </tr>
           </table>

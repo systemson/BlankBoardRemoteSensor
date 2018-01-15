@@ -104,11 +104,18 @@ class InvoicesController extends Controller
         foreach ($meditions as $medition) {
             $medition->update(['paid' => true, 'invoice_id' => $resource->id]);
         }
+        if(Input::get('print')) {
 
-        /** Redirect to newly created resource page */
-        return redirect()
-        ->route('invoices.show', [$resource->id])
-        ->with('success', $this->name . '.resource-created');
+          /** Redirect to newly created resource page */
+          return redirect()
+          ->route('invoices.show', [$resource->id]);
+
+        } else {
+
+          return redirect()
+          ->route('payments.index')
+          ->with('success', $this->name . '.resource-created');
+        }
     }
 
     /**
