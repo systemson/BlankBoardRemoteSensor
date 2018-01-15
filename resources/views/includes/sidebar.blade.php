@@ -106,6 +106,18 @@
     <!-- /. sensors module -->
     @endif
 
+
+		@if (Auth::user()->hasPermission('Users', true))
+    <!-- Users module -->
+    <li class="@if (routeNameIs('users', true)) active @endif">
+      <a href="{{ URL::route('users.index') }}">
+        <i class="fa fa-user"></i>
+        <span>Clientes</span>
+      </a>
+    </li>
+    <!-- /. user module -->
+    @endif
+
 		@if (Auth::user()->hasPermission('Payments', true))
     <!-- Payments Module -->
     <li class="@if (routeNameIs('payments', true)) active @endif">
@@ -126,14 +138,6 @@
         </span>
       </a>
       <ul class="treeview-menu" @if (routeNameIs(['users', 'roles', 'permissions'], true)) style="display: block;"  @endif>
-
-		@if (Auth::user()->hasPermission('Users', true))
-        <!-- Users module -->
-        <li class="@if (routeNameIs('users', true)) active @endif">
-          <a href="{{ URL::route('users.index') }}"><i class="fa fa-users"></i> <span>{{ __('users.title') }}</span></a>
-        </li>
-        <!-- /. user module -->
-        @endif
 
         @if (Auth::user()->hasPermission('Roles', true))
         <!-- Role module -->
