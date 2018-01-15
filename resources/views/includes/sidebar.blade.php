@@ -129,7 +129,7 @@
     <!-- /. payments module -->
     @endif
 
-    @if (Auth::user()->hasPermission('Users|Roles|Permissions', true))
+    @if (Auth::user()->hasPermission('Roles|Permissions', true))
     <!-- Access section -->
     <li class="treeview @if (routeNameIs(['users', 'roles', 'permissions'], true)) menu-open @endif">
       <a href="#"><i class="fa fa-lock"></i> <span>{{ __('users.parent') }}</span>
