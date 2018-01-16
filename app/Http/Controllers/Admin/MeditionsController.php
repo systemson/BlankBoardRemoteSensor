@@ -160,11 +160,14 @@ class MeditionsController extends Controller
 
         $values = [];
         $months = [];
-        foreach($groupByMonth as $sensor_id => $month ) {
-            foreach($month as $group => $data) {
-                $values[$sensor_id][] = $data->sum('medition');
-                $months[$sensor_id][] = __('messages.month.' . Carbon::parse($group)->format('m'));
 
+        if(isset($groupByMonth)) {
+            foreach($groupByMonth as $sensor_id => $month ) {
+                foreach($month as $group => $data) {
+                    $values[$sensor_id][] = $data->sum('medition');
+                    $months[$sensor_id][] = __('messages.month.' . Carbon::parse($group)->format('m'));
+
+                 }
              }
          }
 
